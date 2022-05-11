@@ -2,6 +2,11 @@ import Vue from 'vue';
 import Vuetify from "vuetify";
 
 import { mount } from '@vue/test-utils';
+import { 
+    getConfigText, 
+    removeCommentsFromConfig,
+    emptyConfigText
+} from './utils';
 
 import FormHopla from '@/components/Forms/FormHopla.vue';
 
@@ -26,8 +31,11 @@ afterEach(function(){
 
 
 
-test('Form with empty input returns config with some defaults', function(){
-    expect(1)
-    .toEqual(2)
+test('Form with empty input returns config with some defaults',async function(){
+    let configText = await getConfigText(wrapper);
+    let expectedConfigText = emptyConfigText;
+
+    expect(removeCommentsFromConfig(configText))
+    .toEqual(removeCommentsFromConfig(expectedConfigText))
     ;
 });
