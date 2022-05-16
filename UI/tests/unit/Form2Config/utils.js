@@ -132,3 +132,40 @@ export async function addFather(
     
     await wrapper.vm.$nextTick(); 
 }
+
+class MotherInputs {
+    constructor(params){
+        this.sampleID = "defaultMotherID";
+        this.gender = "F";
+        this.keepInformativeIDs = true;
+        this.diseaseStatus =  "NA";
+        this.keepLimitIDHardDP =  true;
+        this.keepLimitIDHardAF = true;
+        for (let key in params) {
+            this[key] = params[key];
+        };
+    };
+}
+export async function addMother(
+        wrapper,
+        params={},
+){
+    let Inputs = new FatherInputs(params);
+    await wrapper.find('#tab_pedigree').trigger('click');
+    await wrapper.vm.$nextTick();
+    await wrapper.find('#input_mother_add').trigger('click');
+    await wrapper.vm.$nextTick();
+
+    // select father card element
+    let motherCardElm = await wrapper.find('#input_mother_card');
+
+    // fill in fields
+    await inputSampleID(motherCardElm, Inputs.sampleID);
+    await inputGender(motherCardElm, Inputs.gender);
+    await inputInformativeID(motherCardElm,Inputs.keepInformativeIDs);
+    await inputAffected(motherCardElm, Inputs.diseaseStatus);
+    await inputDpHardLimitID(motherCardElm, Inputs.keepLimitIDHardDP);
+    await inputAfHardLimitID(motherCardElm, Inputs.keepLimitIDHardAF);
+    
+    await wrapper.vm.$nextTick(); 
+}
