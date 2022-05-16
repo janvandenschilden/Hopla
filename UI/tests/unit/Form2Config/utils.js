@@ -169,3 +169,40 @@ export async function addMother(
     
     await wrapper.vm.$nextTick(); 
 }
+
+class PaternalGrandfatherInputs {
+    constructor(params){
+        this.sampleID = "defaultPaternalGrandfatherID";
+        this.gender = "M";
+        this.keepInformativeIDs = false;
+        this.diseaseStatus =  "NA";
+        this.keepLimitIDHardDP =  true;
+        this.keepLimitIDHardAF = true;
+        for (let key in params) {
+            this[key] = params[key];
+        };
+    };
+}
+export async function addPaternalGrandfather(
+        wrapper,
+        params={},
+){
+    let Inputs = new FatherInputs(params);
+    await wrapper.find('#tab_pedigree').trigger('click');
+    await wrapper.vm.$nextTick();
+    await wrapper.find('#input_paternal_grandfather_add').trigger('click');
+    await wrapper.vm.$nextTick();
+
+    // select father card element
+    let paternalGrandfatherCardElm = await wrapper.find('#input_paternal_grandfather_card');
+
+    // fill in fields
+    await inputSampleID(paternalGrandfatherCardElm, Inputs.sampleID);
+    await inputGender(paternalGrandfatherCardElm, Inputs.gender);
+    await inputInformativeID(paternalGrandfatherCardElm,Inputs.keepInformativeIDs);
+    await inputAffected(paternalGrandfatherCardElm, Inputs.diseaseStatus);
+    await inputDpHardLimitID(paternalGrandfatherCardElm, Inputs.keepLimitIDHardDP);
+    await inputAfHardLimitID(paternalGrandfatherCardElm, Inputs.keepLimitIDHardAF);
+    
+    await wrapper.vm.$nextTick(); 
+}
