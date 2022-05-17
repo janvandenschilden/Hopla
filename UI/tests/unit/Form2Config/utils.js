@@ -86,14 +86,23 @@ async function inputGender(wrapper,value){
 async function inputInformativeID(wrapper,boolean){
     await wrapper.find('#input_informative_id').setChecked(boolean);
 };
+async function inputKeepBafProfile(wrapper,boolean){
+    await wrapper.find('#input_baf_profile').setChecked(boolean);
+};
 async function inputAffected(wrapper,value){
     await wrapper.findComponent({name:"InputAffected"}).vm.$emit('input',value);
 };
 async function inputDpHardLimitID(wrapper,boolean){
     await wrapper.find('#input_dp_hard_limit_id').setChecked(boolean);
 };
+async function inputDpSoftLimitID(wrapper,boolean){
+    await wrapper.find('#input_dp_soft_limit_id').setChecked(boolean);
+};
 async function inputAfHardLimitID(wrapper,boolean){
     await wrapper.find('#input_af_hard_limit_id').setChecked(boolean);
+};
+async function inputKeepHeteroID(wrapper,boolean){
+    await wrapper.find('#input_hetero_id').setChecked(boolean);
 };
 
 class FatherInputs {
@@ -321,7 +330,7 @@ export async function addMaternalGrandmother(
 class SiblingInputs {
     constructor(params){
         this.N = 0;
-        this.sampleID = "defaultMaternalGrandmotherID";
+        this.sampleID = "defaultSiblingID";
         this.gender = "NA";
         this.diseaseStatus =  "NA";
         this.keepLimitIDHardDP =  true;
@@ -350,6 +359,44 @@ export async function addSibling(
     await inputAffected(cardElm, Inputs.diseaseStatus);
     await inputDpHardLimitID(cardElm, Inputs.keepLimitIDHardDP);
     await inputAfHardLimitID(cardElm, Inputs.keepLimitIDHardAF);
+    
+    await wrapper.vm.$nextTick(); 
+}
+
+class EmbryoInputs {
+    constructor(params){
+        this.N = 0;
+        this.sampleID = "defaultEmbryoID";
+        this.gender = "NA";
+        this.diseaseStatus =  "NA";
+        this.keepLimitIDSoftDP =  true;
+        this.keepBafProfile = true;
+        this.keepHetero = false;
+        for (let key in params) {
+            this[key] = params[key];
+        };
+    };
+}
+export async function addEmbryo(
+        wrapper,
+        params={},
+){
+    let Inputs = new EmbryoInputs(params);
+    await wrapper.find('#tab_pedigree').trigger('click');
+    await wrapper.vm.$nextTick();
+    await wrapper.find('#input_embryo_add').trigger('click');
+    await wrapper.vm.$nextTick();
+
+    // select father card element
+    let cardElm = await wrapper.findAll('#input_embryo_card').at(Inputs.N);
+
+    // fill in fields
+    await inputSampleID(cardElm, Inputs.sampleID);
+    await inputGender(cardElm, Inputs.gender);
+    await inputAffected(cardElm, Inputs.diseaseStatus);
+    await inputDpSoftLimitID(cardElm,Inputs.keepLimitIDSoftDP);
+    await inputKeepBafProfile(cardElm, Inputs.keepBafProfile);
+    await inputKeepHeteroID(wrapper, Inputs.keepHetero);
     
     await wrapper.vm.$nextTick(); 
 }
