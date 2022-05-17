@@ -150,7 +150,7 @@ export async function addMother(
         wrapper,
         params={},
 ){
-    let Inputs = new FatherInputs(params);
+    let Inputs = new MotherInputs(params);
     await wrapper.find('#tab_pedigree').trigger('click');
     await wrapper.vm.$nextTick();
     await wrapper.find('#input_mother_add').trigger('click');
@@ -187,7 +187,7 @@ export async function addPaternalGrandfather(
         wrapper,
         params={},
 ){
-    let Inputs = new FatherInputs(params);
+    let Inputs = new PaternalGrandfatherInputs(params);
     await wrapper.find('#tab_pedigree').trigger('click');
     await wrapper.vm.$nextTick();
     await wrapper.find('#input_paternal_grandfather_add').trigger('click');
@@ -224,7 +224,7 @@ export async function addPaternalGrandmother(
         wrapper,
         params={},
 ){
-    let Inputs = new FatherInputs(params);
+    let Inputs = new PaternalGrandmotherInputs(params);
     await wrapper.find('#tab_pedigree').trigger('click');
     await wrapper.vm.$nextTick();
     await wrapper.find('#input_paternal_grandmother_add').trigger('click');
@@ -261,7 +261,7 @@ export async function addMaternalGrandfather(
         wrapper,
         params={},
 ){
-    let Inputs = new FatherInputs(params);
+    let Inputs = new MaternalGrandfatherInputs(params);
     await wrapper.find('#tab_pedigree').trigger('click');
     await wrapper.vm.$nextTick();
     await wrapper.find('#input_maternal_grandfather_add').trigger('click');
