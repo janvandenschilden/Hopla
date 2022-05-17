@@ -317,3 +317,39 @@ export async function addMaternalGrandmother(
     
     await wrapper.vm.$nextTick(); 
 }
+
+class SiblingInputs {
+    constructor(params){
+        this.N = 0;
+        this.sampleID = "defaultMaternalGrandmotherID";
+        this.gender = "NA";
+        this.diseaseStatus =  "NA";
+        this.keepLimitIDHardDP =  true;
+        this.keepLimitIDHardAF = true;
+        for (let key in params) {
+            this[key] = params[key];
+        };
+    };
+}
+export async function addSibling(
+        wrapper,
+        params={},
+){
+    let Inputs = new SiblingInputs(params);
+    await wrapper.find('#tab_pedigree').trigger('click');
+    await wrapper.vm.$nextTick();
+    await wrapper.find('#input_sibling_add').trigger('click');
+    await wrapper.vm.$nextTick();
+
+    // select father card element
+    let cardElm = await wrapper.findAll('#input_sibling_card').at(Inputs.N);
+
+    // fill in fields
+    await inputSampleID(cardElm, Inputs.sampleID);
+    await inputGender(cardElm, Inputs.gender);
+    await inputAffected(cardElm, Inputs.diseaseStatus);
+    await inputDpHardLimitID(cardElm, Inputs.keepLimitIDHardDP);
+    await inputAfHardLimitID(cardElm, Inputs.keepLimitIDHardAF);
+    
+    await wrapper.vm.$nextTick(); 
+}
