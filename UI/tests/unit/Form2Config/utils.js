@@ -280,3 +280,40 @@ export async function addMaternalGrandfather(
     
     await wrapper.vm.$nextTick(); 
 }
+
+class MaternalGrandmotherInputs {
+    constructor(params){
+        this.sampleID = "defaultMaternalGrandmotherID";
+        this.gender = "F";
+        this.keepInformativeIDs = false;
+        this.diseaseStatus =  "NA";
+        this.keepLimitIDHardDP =  true;
+        this.keepLimitIDHardAF = true;
+        for (let key in params) {
+            this[key] = params[key];
+        };
+    };
+}
+export async function addMaternalGrandmother(
+        wrapper,
+        params={},
+){
+    let Inputs = new MaternalGrandmotherInputs(params);
+    await wrapper.find('#tab_pedigree').trigger('click');
+    await wrapper.vm.$nextTick();
+    await wrapper.find('#input_maternal_grandmother_add').trigger('click');
+    await wrapper.vm.$nextTick();
+
+    // select father card element
+    let cardElm = await wrapper.find('#input_maternal_grandmother_card');
+
+    // fill in fields
+    await inputSampleID(cardElm, Inputs.sampleID);
+    await inputGender(cardElm, Inputs.gender);
+    await inputInformativeID(cardElm,Inputs.keepInformativeIDs);
+    await inputAffected(cardElm, Inputs.diseaseStatus);
+    await inputDpHardLimitID(cardElm, Inputs.keepLimitIDHardDP);
+    await inputAfHardLimitID(cardElm, Inputs.keepLimitIDHardAF);
+    
+    await wrapper.vm.$nextTick(); 
+}
