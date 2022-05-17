@@ -6,7 +6,7 @@ import {
     getConfigText,
     removeCommentsFromConfig,
     emptyConfigText,
-    addPaternalGrandfather,
+    addPaternalGrandmother,
 } from './utils';
 
 import FormHopla from '@/components/Forms/FormHopla.vue';
@@ -26,8 +26,8 @@ beforeEach( async function(){
         vuetify,
     });
     params = {
-        sampleID : "defaultPaternalGrandfatherID",
-        gender : "M",
+        sampleID : "defaultPaternalGrandmotherID",
+        gender : "F",
         keepInformativeIDs : false,
         diseaseStatus :  "NA",
         keepLimitIDHardDP :  true,
@@ -35,27 +35,27 @@ beforeEach( async function(){
     };
     expectedConfigText = emptyConfigText.replace(
             'sample.ids=',
-            'sample.ids=defaultPaternalGrandfatherID,U1',
+            'sample.ids=defaultPaternalGrandmotherID,U1',
         )
         .replace(
             'father.ids=',
-            'father.ids=NA,defaultPaternalGrandfatherID',
+            'father.ids=NA,NA',
         )
         .replace(
             'mother.ids=',
-            'mother.ids=NA,NA',
+            'mother.ids=NA,defaultPaternalGrandmotherID',
         )
         .replace(
             'genders=',
-            'genders=M,M',
+            'genders=F,M',
         )
         .replace(
             'dp.hard.limit.ids=',
-            'dp.hard.limit.ids=defaultPaternalGrandfatherID,U1',
+            'dp.hard.limit.ids=defaultPaternalGrandmotherID,U1',
         )
         .replace(
             'af.hard.limit.ids=',
-            'af.hard.limit.ids=defaultPaternalGrandfatherID,U1',
+            'af.hard.limit.ids=defaultPaternalGrandmotherID,U1',
         )
         .replace(
             'keep.informative.ids=',
@@ -72,9 +72,9 @@ afterEach( function(){
 );
 
 
-describe('Changing paternal grandfather inputs should change corresponding values in config', function(){
+describe('Changing paternal grandmother mother inputs should change corresponding values in config', function(){
     test('default inputs', async function(){
-        await addPaternalGrandfather(wrapper, params);
+        await addPaternalGrandmother(wrapper, params);
 
         // compare expected config text with actual config text
         let configText = await getConfigText(wrapper);
@@ -90,11 +90,11 @@ describe('Changing paternal grandfather inputs should change corresponding value
         // change expected config text
         expectedConfigText = expectedConfigText
             .replace(
-                /defaultPaternalGrandfatherID/g,
+                /defaultPaternalGrandmotherID/g,
                 'newSampleID',
             )
             ;
-        await addPaternalGrandfather(wrapper, params);
+        await addPaternalGrandmother(wrapper, params);
         await wrapper.vm.$nextTick();
 
         // compare expected config text with actual config text
@@ -112,10 +112,10 @@ describe('Changing paternal grandfather inputs should change corresponding value
         expectedConfigText = expectedConfigText
             .replace(
                 'keep.informative.ids=U1',
-                'keep.informative.ids=defaultPaternalGrandfatherID,U1',
+                'keep.informative.ids=defaultPaternalGrandmotherID,U1',
             )
             ;
-        await addPaternalGrandfather(wrapper, params);
+        await addPaternalGrandmother(wrapper, params);
         await wrapper.vm.$nextTick();
 
         // compare expected config text with actual config text
@@ -132,11 +132,11 @@ describe('Changing paternal grandfather inputs should change corresponding value
         // change expected config text
         expectedConfigText = expectedConfigText
             .replace(
-                'dp.hard.limit.ids=defaultPaternalGrandfatherID,U1',
+                'dp.hard.limit.ids=defaultPaternalGrandmotherID,U1',
                 'dp.hard.limit.ids=U1',
             )
             ;
-        await addPaternalGrandfather(wrapper, params);
+        await addPaternalGrandmother(wrapper, params);
         await wrapper.vm.$nextTick();
 
         // compare expected config text with actual config text
@@ -153,11 +153,11 @@ describe('Changing paternal grandfather inputs should change corresponding value
         // change expected config text
         expectedConfigText = expectedConfigText
             .replace(
-                'af.hard.limit.ids=defaultPaternalGrandfatherID,U1',
+                'af.hard.limit.ids=defaultPaternalGrandmotherID,U1',
                 'af.hard.limit.ids=U1',
             )
             ;
-        await addPaternalGrandfather(wrapper, params);
+        await addPaternalGrandmother(wrapper, params);
         await wrapper.vm.$nextTick();
 
         // compare expected config text with actual config text
@@ -175,10 +175,10 @@ describe('Changing paternal grandfather inputs should change corresponding value
         expectedConfigText = expectedConfigText
             .replace(
                 'affected.ids=',
-                'affected.ids=defaultPaternalGrandfatherID',
+                'affected.ids=defaultPaternalGrandmotherID',
             )
             ;
-        await addPaternalGrandfather(wrapper, params);
+        await addPaternalGrandmother(wrapper, params);
         await wrapper.vm.$nextTick();
 
         // compare expected config text with actual config text
@@ -196,10 +196,10 @@ describe('Changing paternal grandfather inputs should change corresponding value
         expectedConfigText = expectedConfigText
             .replace(
                 'nonaffected.ids=',
-                'nonaffected.ids=defaultPaternalGrandfatherID',
+                'nonaffected.ids=defaultPaternalGrandmotherID',
             )
             ;
-        await addPaternalGrandfather(wrapper, params);
+        await addPaternalGrandmother(wrapper, params);
         await wrapper.vm.$nextTick();
 
         // compare expected config text with actual config text
@@ -217,10 +217,10 @@ describe('Changing paternal grandfather inputs should change corresponding value
         expectedConfigText = expectedConfigText
             .replace(
                 'carrier.ids=',
-                'carrier.ids=defaultPaternalGrandfatherID',
+                'carrier.ids=defaultPaternalGrandmotherID',
             )
             ;
-        await addPaternalGrandfather(wrapper, params);
+        await addPaternalGrandmother(wrapper, params);
         await wrapper.vm.$nextTick();
 
         // compare expected config text with actual config text
